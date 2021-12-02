@@ -1,8 +1,9 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, avoid_unnecessary_containers, avoid_print
 
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myuconnect/Data/login.dart';
+import 'package:myuconnect/Models/users.dart';
 import 'package:myuconnect/UI/dashboard.dart';
 
 class Login extends StatefulWidget {
@@ -16,6 +17,7 @@ class _LoginState extends State<Login> {
   TextEditingController passController = TextEditingController();
 
   bool secretPass = true;
+  late User sessionUser;
 
   @override
   Widget build(BuildContext context) {
@@ -78,11 +80,17 @@ class _LoginState extends State<Login> {
                     enableSuggestions: false,
                     autocorrect: false,
                     decoration: InputDecoration(
-                      suffixIcon: IconButton(icon: Icon(!secretPass? Icons.visibility_off: Icons.visibility, size: 17,),onPressed: (){
-                        setState(() {
-                          secretPass = !secretPass;
-                        });
-                      },),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          !secretPass ? Icons.visibility_off : Icons.visibility,
+                          size: 17,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            secretPass = !secretPass;
+                          });
+                        },
+                      ),
                       labelText: "Contraseña",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -111,7 +119,8 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     onPressed: () {
-                      print(nicknameController.text + " " + passController.text);
+                      LoginApi.verifyUser(
+                          nicknameController.text, passController.text);
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Dashboard()));
                     },
