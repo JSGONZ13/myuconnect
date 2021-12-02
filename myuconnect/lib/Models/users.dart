@@ -6,7 +6,7 @@ class User {
       apellido,
       cedula,
       telefono,
-      correo,
+      email,
       password,
       nickname,
       universidad,
@@ -14,26 +14,16 @@ class User {
       cargo;
 
   User(
-      String nombre,
-      String apellido,
-      String cedula,
-      String telefono,
-      String correo,
-      String password,
-      String nickname,
-      String universidad,
-      String carrera,
-      String cargo) {
-    this.nombre = nombre;
-    this.apellido = apellido;
-    this.cedula = cedula;
-    this.telefono = telefono;
-    this.correo = correo;
-    this.password = password;
-    this.nickname = nickname;
-    this.universidad = universidad;
-    this.carrera = carrera;
-    this.cargo = cargo;
-  }
-  
+    this.id,
+    this.nombre,
+    this.apellido,
+    this.cedula,
+    this.telefono,
+    this.email,
+    this.password,
+    this.nickname,
+    this.universidad,
+    this.carrera,
+    this.cargo,
+  );
 }

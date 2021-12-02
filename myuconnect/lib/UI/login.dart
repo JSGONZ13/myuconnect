@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, avoid_unnecessary_containers, avoid_print
 
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:myuconnect/Data/login.dart';
-import 'package:myuconnect/Models/users.dart';
+import 'package:http/http.dart' as http;
 import 'package:myuconnect/UI/dashboard.dart';
 
 class Login extends StatefulWidget {
@@ -12,12 +12,29 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  TextEditingController nicknameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
 
   TextEditingController passController = TextEditingController();
 
   bool secretPass = true;
-  late User sessionUser;
+
+  Future save() async {
+    var res = await http.post(Uri.parse("https://myuconnect.herokuapp.com/signin"),
+        headers: <String, String>{
+          'Context-Type': 'application/json;charSet=UTF-8'
+        },
+        body: <String, String>{
+          'email': emailController.text,
+          'password': passController.text
+        });
+    if (res.body.isEmpty) {
+      debugPrint('Datos incorrectos');
+    } else {      
+      debugPrint(res.body);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Dashboard()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,12 +80,12 @@ class _LoginState extends State<Login> {
                     autocorrect: false,
                     enableSuggestions: false,
                     decoration: InputDecoration(
-                      labelText: "Usuario",
+                      labelText: "E-mail",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    controller: nicknameController,
+                    controller: emailController,
                   ),
                 ),
                 Container(
@@ -119,10 +136,12 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     onPressed: () {
-                      LoginApi.verifyUser(
-                          nicknameController.text, passController.text);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Dashboard()));
+                      if (emailController.text == '' &&
+                          passController.text == '') {
+                        debugPrint('Campos vacíos');
+                      } else {
+                        save();
+                      }
                     },
                   ),
                 ),

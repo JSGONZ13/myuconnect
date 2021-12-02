@@ -85,7 +85,7 @@ class _MainState extends State<Main> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterPage()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Register()));
                     },
                   ),
                 ),
