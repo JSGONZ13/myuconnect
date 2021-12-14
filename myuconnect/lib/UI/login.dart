@@ -1,10 +1,9 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, avoid_unnecessary_containers, avoid_print
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:myuconnect/Models/users.dart';
 import 'package:myuconnect/UI/dashboard.dart';
+import 'package:myuconnect/services/apiService.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -18,8 +17,12 @@ class _LoginState extends State<Login> {
 
   bool secretPass = true;
 
+  final UserService userService = UserService();
+  List<User>? userList;
+
   Future save() async {
-    var res = await http.post(Uri.parse("https://myuconnect.herokuapp.com/signin"),
+    var res = await http.post(
+        Uri.parse("https://myuconnect.herokuapp.com/signin"),
         headers: <String, String>{
           'Context-Type': 'application/json;charSet=UTF-8'
         },
@@ -29,23 +32,28 @@ class _LoginState extends State<Login> {
         });
     if (res.body.isEmpty) {
       debugPrint('Datos incorrectos');
-    } else {      
-      debugPrint(res.body);
+    } else {
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Dashboard()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => Dashboard(
+                    email: emailController.text,
+                    users: userList,
+                  )));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Color(0xffffffff),
-          foregroundColor: Color(0xff003F72),
-        ),
-        body: Center(
-          child: Container(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Color(0xffffffff),
+        foregroundColor: Color(0xff003F72),
+      ),
+      body: ListView(
+        children: <Widget>[
+          Container(
             decoration: BoxDecoration(
               color: Colors.white,
               // ignore: prefer_const_literals_to_create_immutables
@@ -145,9 +153,16 @@ class _LoginState extends State<Login> {
                     },
                   ),
                 ),
+                
               ],
             ),
           ),
-        ));
+        ],
+      ),
+    );
   }
+
+  
 }
+
+

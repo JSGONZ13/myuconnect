@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, duplicate_ignore, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:myuconnect/UI/test.dart';
 import 'package:myuconnect/UI/wrapper.dart';
 
 void main() {
@@ -33,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Main(),
+      body: Test(),
     );
   }
 }
