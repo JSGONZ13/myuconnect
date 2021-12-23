@@ -11,6 +11,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+  
   TextEditingController emailController = TextEditingController();
 
   TextEditingController passController = TextEditingController();
@@ -18,7 +20,6 @@ class _LoginState extends State<Login> {
   bool secretPass = true;
 
   final UserService userService = UserService();
-  List<User>? userList;
 
   Future save() async {
     var res = await http.post(
@@ -38,7 +39,6 @@ class _LoginState extends State<Login> {
           MaterialPageRoute(
               builder: (context) => Dashboard(
                     email: emailController.text,
-                    users: userList,
                   )));
     }
   }
@@ -51,9 +51,8 @@ class _LoginState extends State<Login> {
         backgroundColor: Color(0xffffffff),
         foregroundColor: Color(0xff003F72),
       ),
-      body: ListView(
-        children: <Widget>[
-          Container(
+      body: Center(
+        child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
               // ignore: prefer_const_literals_to_create_immutables
@@ -85,6 +84,7 @@ class _LoginState extends State<Login> {
                   height: 60,
                   padding: EdgeInsets.all(10),
                   child: TextField(
+                    keyboardType: TextInputType.emailAddress,
                     autocorrect: false,
                     enableSuggestions: false,
                     decoration: InputDecoration(
@@ -157,8 +157,7 @@ class _LoginState extends State<Login> {
               ],
             ),
           ),
-        ],
-      ),
+      )
     );
   }
 
