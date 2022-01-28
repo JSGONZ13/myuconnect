@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "858816274930",
+    "project_id": "myuconnect-ff1b5",
+    "storage_bucket": "myuconnect-ff1b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858816274930:android:3df38fc201d1c14d5a8b6b",
+        "android_client_info": {
+          "package_name": "com.example.myuconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "858816274930-c7bruspvvkedk594jd5ogj03clkia1ac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5NBf9fAZb77wxBt-U5df3HKgALszG6yc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "858816274930-c7bruspvvkedk594jd5ogj03clkia1ac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
