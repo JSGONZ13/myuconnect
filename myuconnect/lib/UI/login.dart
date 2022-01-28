@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:myuconnect/Models/users.dart';
 import 'package:myuconnect/UI/dashboard.dart';
 import 'package:myuconnect/services/apiService.dart';
 
@@ -57,21 +56,21 @@ class _LoginState extends State<Login> {
               color: Colors.white,
               // ignore: prefer_const_literals_to_create_immutables
               boxShadow: [
-                BoxShadow(
+                const BoxShadow(
                     color: Color(0x1A003F72), spreadRadius: 1, blurRadius: 25),
               ],
               borderRadius: BorderRadius.circular(30),
             ),
             height: 400,
             width: 300,
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.only(bottom: 10),
-                  padding: EdgeInsets.all(20),
+                  margin: const EdgeInsets.only(bottom: 10),
+                  padding: const EdgeInsets.all(20),
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Ingrese sus credenciales de acceso:",
@@ -82,7 +81,7 @@ class _LoginState extends State<Login> {
                 Container(
                   width: 250,
                   height: 60,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: TextField(
                     keyboardType: TextInputType.emailAddress,
                     autocorrect: false,
@@ -99,7 +98,7 @@ class _LoginState extends State<Login> {
                 Container(
                   width: 250,
                   height: 60,
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: TextField(
                     obscureText: secretPass,
                     enableSuggestions: false,
@@ -126,17 +125,17 @@ class _LoginState extends State<Login> {
                 ),
                 Container(
                   alignment: Alignment.centerRight,
-                  margin: EdgeInsets.only(top: 60),
-                  padding: EdgeInsets.all(10),
+                  margin: const EdgeInsets.only(top: 60),
+                  padding: const EdgeInsets.all(10),
                   child: ElevatedButton(
                     style: ButtonStyle(
                         elevation: MaterialStateProperty.all(0),
                         backgroundColor:
-                            MaterialStateProperty.all(Color(0xff003F72)),
+                            MaterialStateProperty.all(const Color(0xff003F72)),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30)))),
                     child: Container(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Text(
                         "INGRESAR",
                         style: GoogleFonts.montserrat(

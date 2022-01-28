@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors, duplicate_ignore, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:myuconnect/UI/dashboard.dart';
 import 'package:myuconnect/UI/wrapper.dart';
 
-import 'UI/dashboard.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Dashboard(email: 'jesarmiento3@utpl.edu.ec'),
+      body: /*Main()*/ Dashboard(email: "jsgonzalez13@utpl.edu.ec",),
     );
   }
 }
