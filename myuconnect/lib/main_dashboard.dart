@@ -31,7 +31,7 @@ class _MainDashboardState extends State<MainDashboard> {
         onTap: (int val) => setState(() => _index = val),
         currentIndex: _index,
         items: [
-          FloatingNavbarItem(icon: Icons.assignment_rounded, title: 'POSTS'),
+          FloatingNavbarItem(icon: Icons.assignment_rounded, title: 'Posts'),
           FloatingNavbarItem(icon: Icons.all_inbox_rounded, title: 'Mis Posts'),
         ],
       ),

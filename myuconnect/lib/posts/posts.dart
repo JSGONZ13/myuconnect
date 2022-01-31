@@ -10,6 +10,21 @@ class Posts extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: const Text("Posts"),
       ),
+      body: const ShowPosts(),
+    );
+  }
+
+  
+}
+
+class ShowPosts extends StatelessWidget {
+  const ShowPosts({Key? key}) : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text("Presentar posts"),
     );
   }
 }
