@@ -1,9 +1,11 @@
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:myuconnect/MyPosts/myposts.dart';
 
 import 'Posts/posts.dart';
 
+// ignore: must_be_immutable
 class MainDashboard extends StatefulWidget {
   final String nickname;
   const MainDashboard({Key? key, required this.nickname}) : super(key: key);
@@ -22,11 +24,19 @@ class _MainDashboardState extends State<MainDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xffffffff),
+        elevation: 0,
         automaticallyImplyLeading: false,
-        title: Text("Usuario: "+widget.nickname),
+        title: Text(
+          "Usuario " + widget.nickname,
+          style: GoogleFonts.montserrat(
+              color: const Color(0xff003F72),
+              fontWeight: FontWeight.w400,
+              fontSize: 20),
+        ),
       ),
       extendBody: false,
-      body: _index == 0 ? const Posts() : const MyPosts(),
+      body: _index == 0 ? Posts(nickname: widget.nickname) : MyPosts(),
       bottomNavigationBar: FloatingNavbar(
         onTap: (int val) => setState(() => _index = val),
         currentIndex: _index,
