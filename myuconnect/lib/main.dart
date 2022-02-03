@@ -30,9 +30,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => GetIt.I<ResponsesProvider>()
-          
-        )
+            create: (context) => GetIt.I<ResponsesProvider>())
       ],
       child: MaterialApp(
         title: "Demo",
@@ -41,4 +39,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
