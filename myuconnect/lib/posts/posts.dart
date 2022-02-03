@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:myuconnect/Models/post.dart';
 import 'package:myuconnect/Posts/create_posts.dart';
 import 'package:myuconnect/Posts/view_posts.dart';
+import 'package:myuconnect/responses/presentation/pages/responses_page.dart';
 
 class Posts extends StatefulWidget {
   final String nickname;
@@ -71,7 +72,7 @@ class _PostsState extends State<Posts> {
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, i) {
                             QueryDocumentSnapshot psts = snapshot.data!.docs[i];
-                            return UPost(psts: psts);
+                            return UPost(psts: psts, nickName: widget.nickname,);
                           });
                     } else {
                       return const SizedBox(
@@ -92,10 +93,11 @@ class _PostsState extends State<Posts> {
 class UPost extends StatelessWidget {
   const UPost({
     Key? key,
-    required this.psts,
+    required this.psts, required this.nickName
   }) : super(key: key);
 
   final QueryDocumentSnapshot<Object?> psts;
+  final String nickName;
 
   @override
   Widget build(BuildContext context) {
@@ -154,6 +156,30 @@ class UPost extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => ViewPosts(
                                         post: post,
+                                      )));
+                        },
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Container(
+                      margin: const EdgeInsets.all(6),
+                      child: TextButton(
+                        child: Text(
+                          "Comentar",
+                          style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
+                              color: const Color(0xff003F72)),
+                        ),
+                        onPressed: () {
+                          print(post);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ResponsesPage(
+                                        post: post, nickName: nickName,
                                       )));
                         },
                       ),

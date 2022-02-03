@@ -17,7 +17,7 @@ class _CreatePostsState extends State<CreatePosts> {
   Post post = Post("", "", "", "", DateTime.now().toString());
   create(Post post) async {
     try {
-      await firebase.collection("posts").doc().set({
+      await firebase.collection("posts").doc(post.id).collection("responses").doc().set({
         "titulo": post.titulo,
         "body": post.body,
         "nicknameUsuario": post.nicknameUsuario,
