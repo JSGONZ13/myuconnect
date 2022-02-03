@@ -14,4 +14,11 @@ class Post {
   String get body => _body;
   String get nicknameUsuario => _nicknameUsuario;
   String get date => _date;
+
+  Map<String, dynamic> toMap() => {
+        'titulo': _titulo,
+        'body': _body,
+        'nicknameUsuario': _nicknameUsuario,
+        'date': DateTime.now().toString()
+      };
 }

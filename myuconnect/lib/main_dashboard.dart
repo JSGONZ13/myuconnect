@@ -36,7 +36,7 @@ class _MainDashboardState extends State<MainDashboard> {
         ),
       ),
       extendBody: false,
-      body: _index == 0 ? Posts(nickname: widget.nickname) : MyPosts(),
+      body: _index == 0 ? Posts(nickname: widget.nickname) : MyPosts(nickName: widget.nickname,),
       bottomNavigationBar: FloatingNavbar(
         onTap: (int val) => setState(() => _index = val),
         currentIndex: _index,
