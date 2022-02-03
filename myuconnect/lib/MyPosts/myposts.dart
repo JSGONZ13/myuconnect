@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:myuconnect/Models/post.dart';
 import 'package:myuconnect/MyPosts/update_posts.dart';
 import 'package:myuconnect/posts/view_posts.dart';
+import 'package:myuconnect/responses/presentation/pages/responses_page.dart';
 
 class MyPosts extends StatefulWidget {
   String nickName;
@@ -69,8 +70,6 @@ class MyPost extends StatelessWidget {
   final QueryDocumentSnapshot<Object?> psts;
   final String nickName;
 
-  
-
   @override
   Widget build(BuildContext context) {
     final FirebaseFirestore db = FirebaseFirestore.instance;
@@ -78,38 +77,84 @@ class MyPost extends StatelessWidget {
         psts['nicknameUsuario'], psts['date']);
 
     void _showAlertDialogSi(BuildContext context) {
-    showDialog <String> (
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('AVISO', textAlign: TextAlign.center,),
-          content: const Text(
-            'Elija la opción que desee realizar',
-            textAlign: TextAlign.center,
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ViewPosts(post: post),)),
-              child: const Text('Ver publicación'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePosts(post: post, nick: nickName),)),
-              child: const Text('Editar publicación'),
-            ),
-            TextButton(
-              onPressed: () async {
-                await db.collection("posts").doc(post.id).delete();
-              },
-              child: const Text('Eliminar publicación'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, "Salir"),
-              child: const Text('Salir'),
-            ),
-          ],
-        )
-    );
-  }
-
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                
+                content: Text('Elija la opción que desee realizar',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 20,
+                        color: const Color(0xff191919))),
+                actions: <Widget>[
+                  Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: TextButton(
+                          onPressed: () {
+                            print(post);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ResponsesPage(
+                                          post: post,
+                                          nickName: nickName,
+                                        )));
+                          },
+                          child: Text('Ver publicación',
+                              style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20,
+                                  color: const Color(0xff003F72))),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: TextButton(
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    UpdatePosts(post: post, nick: nickName),
+                              )),
+                          child: Text('Editar publicación',
+                              style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20,
+                                  color: const Color(0xff003F72))),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: TextButton(
+                          onPressed: () async {
+                            await db.collection("posts").doc(post.id).delete();
+                          },
+                          child: Text('Eliminar publicación',
+                              style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20,
+                                  color: const Color(0xff003F72))),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: TextButton(
+                          onPressed: () => Navigator.pop(context, "Salir"),
+                          child: Text('Salir',
+                              style: GoogleFonts.montserrat(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 20,
+                                  color: Colors.redAccent)),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ));
+    }
 
     return Column(
       children: [
@@ -128,14 +173,6 @@ class MyPost extends StatelessWidget {
                         alignment: Alignment.topLeft,
                         child: Text(
                           post.titulo,
-                          style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.w600, fontSize: 20),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          post.body,
                           style: GoogleFonts.montserrat(
                               fontWeight: FontWeight.w600, fontSize: 20),
                         ),
@@ -166,8 +203,6 @@ class MyPost extends StatelessWidget {
                           ),
                         ),
                       ),
-                      
-                      
                     ],
                   ),
                 ),
@@ -177,6 +212,4 @@ class MyPost extends StatelessWidget {
       ],
     );
   }
-
-  
 }

@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: "Demo",
-        home: Dashboard(email: "jsgonzalez13@utpl.edu.ec"),
+        home: Main(),
       ),
     );
   }
