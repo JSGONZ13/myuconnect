@@ -68,11 +68,49 @@ class MyPost extends StatelessWidget {
 
   final QueryDocumentSnapshot<Object?> psts;
   final String nickName;
+
+  
+
   @override
   Widget build(BuildContext context) {
     final FirebaseFirestore db = FirebaseFirestore.instance;
     Post post = Post(psts.id, psts['titulo'], psts['body'],
         psts['nicknameUsuario'], psts['date']);
+
+    void _showAlertDialogSi(BuildContext context) {
+    showDialog <String> (
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('AVISO', textAlign: TextAlign.center,),
+          content: const Text(
+            'Elija la opción que desee realizar',
+            textAlign: TextAlign.center,
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ViewPosts(post: post),)),
+              child: const Text('Ver publicación'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePosts(post: post, nick: nickName),)),
+              child: const Text('Editar publicación'),
+            ),
+            TextButton(
+              onPressed: () async {
+                await db.collection("posts").doc(post.id).delete();
+              },
+              child: const Text('Eliminar publicación'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, "Salir"),
+              child: const Text('Salir'),
+            ),
+          ],
+        )
+    );
+  }
+
+
     return Column(
       children: [
         if (nickName == psts['nicknameUsuario'])
@@ -116,67 +154,20 @@ class MyPost extends StatelessWidget {
                           margin: const EdgeInsets.all(6),
                           child: TextButton(
                             child: Text(
-                              "Ver Publicación",
+                              "Opciones",
                               style: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 20,
                                   color: const Color(0xff003F72)),
                             ),
                             onPressed: () {
-                              print(post);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ViewPosts(
-                                            post: post,
-                                          )));
+                              _showAlertDialogSi(context);
                             },
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Container(
-                          margin: const EdgeInsets.all(6),
-                          child: TextButton(
-                            child: Text(
-                              "Editar Publicación",
-                              style: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 20,
-                                  color: const Color(0xff003F72)),
-                            ),
-                            onPressed: () {
-                              print(post);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => UpdatePosts(
-                                            post: post,
-                                            nick: nickName,
-                                          )));
-                            },
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Container(
-                          margin: const EdgeInsets.all(6),
-                          child: TextButton(
-                            child: Text(
-                              "Eliminar Publicación",
-                              style: GoogleFonts.montserrat(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 20,
-                                  color: const Color(0xff003F72)),
-                            ),
-                            onPressed: () async{
-                              await db.collection("posts").doc(post.id).delete();
-                            },
-                          ),
-                        ),
-                      ),
+                      
+                      
                     ],
                   ),
                 ),
