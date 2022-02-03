@@ -7,9 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:myuconnect/Models/post.dart';
 import 'package:myuconnect/responses/data/models/response_model.dart';
 import 'package:myuconnect/responses/presentation/provider/responses_provider.dart';
-import 'package:myuconnect/responses/presentation/widgets/column_get.dart';
 import 'package:provider/provider.dart';
-import 'package:myuconnect/responses/presentation/widgets/column_info.dart';
 
 class ResponsesPage extends StatefulWidget {
   final Post post;
@@ -56,28 +54,7 @@ class _ResponsesPageState extends State<ResponsesPage> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          color: const Color(0xfff2f2f2),
-                          child: Container(
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: Text(widget.post.titulo),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: Text(widget.post.body),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: Text("Publicado por: " +
-                                      widget.post.nicknameUsuario),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                        child: myPost(),
                       ),
                       Padding(
                         padding: EdgeInsets.all(8.0),
@@ -92,16 +69,15 @@ class _ResponsesPageState extends State<ResponsesPage> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: RaisedButton(
-                          child: Text("Enviar"),
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          child: const Text("Enviar"),
                           onPressed: () {
                             if (_textResponse.text.isEmpty) {
                               print("Ingrese data");
                             } else {
                               res.sendResponses(
                                   Responses(
-                                      
                                       namePost: widget.post.titulo,
                                       content: _textResponse.text,
                                       date: DateTime.now().toString(),
@@ -144,7 +120,7 @@ class _ResponsesPageState extends State<ResponsesPage> {
                                   itemBuilder: (context, index) {
                                     QueryDocumentSnapshot resp =
                                         snapshot.data!.docs[index];
-                                        
+
                                     return UResponses(
                                       resp: resp,
                                       nick: widget.nickName,
@@ -170,14 +146,68 @@ class _ResponsesPageState extends State<ResponsesPage> {
           ],
         ));
   }
+
+  Card myPost() {
+    return Card(
+      color: const Color(0xfff2f2f2),
+      child: Expanded(
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: Container(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    widget.post.titulo,
+                    style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w600, fontSize: 20),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    "Publicado por: " + widget.post.nicknameUsuario,
+                    style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w300, fontSize: 16),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    widget.post.body,
+                    style: GoogleFonts.montserrat(
+                        fontWeight: FontWeight.w300, fontSize: 18),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class UResponses extends StatelessWidget {
-  const UResponses({Key? key, required this.resp, required this.nick, required this.idDocument})
+  const UResponses(
+      {Key? key,
+      required this.resp,
+      required this.nick,
+      required this.idDocument})
       : super(key: key);
 
   final QueryDocumentSnapshot<Object?> resp;
-  final String nick; final String idDocument;
+  final String nick;
+  final String idDocument;
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +245,8 @@ class UResponses extends StatelessWidget {
                       child: FloatingActionButton(
                         mini: true,
                         onPressed: () {
-                          res.deleteResponse(responses, idDocument, responses.id);
+                          res.deleteResponse(
+                              responses, idDocument, responses.id);
                         },
                         child: Icon(Icons.delete_forever),
                       ),
